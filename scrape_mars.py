@@ -95,55 +95,6 @@ def scrape():
 	print(featured_image_url)
 	
 
-	""" Mars Weather """
-	
-
-	# Run init_browser/driver.
-	browser = init_browser()
-	
-
-	# Visit the url for Mars Weather twitter account.
-	weather_url = "https://twitter.com/marswxreport?lang=en"
-	browser.visit(weather_url)
-	
-
-	# HTML Object.
-	html = browser.html
-	
-
-	# Parse HTML with Beautiful Soup
-	weather_soup = BeautifulSoup(html, "html.parser")
-	
-
-	# Retrieve ALL 'ol' tags and save to variable 'tweets'.
-	tweets = weather_soup.find_all('ol', class_='stream-items')
-	# Iterate through all 'tweets' and find text in 'p' tag.
-	# Break for most recent tweet if keyword 'InSight' in text.
-	# Otherwise move onto next tweet.
-	for tweet in tweets:
-	    mars_weather = tweet.find('p', class_="TweetTextSize TweetTextSize--normal js-tweet-text tweet-text").text
-	    if 'InSight' in tweet:
-	        break
-	    else:
-	        continue
-	
-
-	# Exit Browser.
-	browser.quit()
-	
-
-	# Remove 'anchor' tag text from "mars_weather" via split on 'pic'.
-	mars_weather = mars_weather.split('pic')[0]
-	
-
-	# Replace '\n' with ' '.
-	mars_weather = mars_weather.replace('\n', ' ')
-	
-
-	# Print most recent Mars Weather.
-	print(mars_weather)
-	
-
 	""" Mars Facts """
 	
 
@@ -161,7 +112,7 @@ def scrape():
 	
 
 	# Rename columns.
-	df_mars_facts.columns = ['Description', 'Value']
+	df_mars_facts.columns = ['Description', 'Earth', 'Mars']
 	
 
 	# Set index to 'Description'.
@@ -169,7 +120,7 @@ def scrape():
 	
 
 	# # Convert DF to html and save in Resources Folder.
-	# df_mars_facts.to_html('Resources/mars_facts.html')
+	# df_mars_facts.to_html('mars_facts.html')
 	
 
 	# Convert DF to HTML string.
