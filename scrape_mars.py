@@ -74,11 +74,9 @@ def scrape():
 	# HTML Object.
 	html = browser.html
 	
-
 	# Parse HTML with Beautiful Soup
 	image_soup = BeautifulSoup(html, "html.parser")
 	
-
 	# Scrape image URL.
 	image_url = image_soup.find("figure", class_="lede").a["href"]
 	
@@ -177,21 +175,19 @@ def scrape():
 
 	hemisphere_image_urls = []
 	for hemi in hemis_url:
-	    hem_astrogeo_url = main_astrogeo_url + hemi
-	    print(hem_astrogeo_url)
+	    astrogeo_url = main_astrogeo_url + hemi
+	    print(astrogeo_url)
 	        
 	    # Run init_browser/driver.
 	    browser = init_browser()
-	    browser.visit(hem_astrogeo_url)
+	    browser.visit(astrogeo_url)
 	        
 	    # HTML Object.
 	    html = browser.html
 	
-
-	    # Parse HTML with Beautiful Soup
+		# Parse HTML with Beautiful Soup
 	    hemi_soup = BeautifulSoup(html, "html.parser")
 	
-
 	    # Locate each title and save to raw_title, to be cleaned.
 	    raw_title = hemi_soup.find("h2", class_="title").text
 	        
@@ -216,24 +212,19 @@ def scrape():
 	# Create empty dictionary for all Mars Data.
 	mars_data = {}
 	
-
 	# Append news_title and news_paragraph to mars_data.
 	mars_data['news_title'] = news_title
 	mars_data['news_paragraph'] = news_paragraph
 	
-
 	# Append featured_image_url to mars_data.
 	mars_data['featured_image_url'] = featured_image_url
 	
-
 	# Append mars_weather to mars_data.
 	mars_data['mars_weather'] = mars_weather
 	
-
 	# Append mars_facts to mars_data.
 	mars_data['mars_facts'] = mars_facts
 	
-
 	# Append hemisphere_image_urls to mars_data.
 	mars_data['hemisphere_image_urls'] = hemisphere_image_urls
 	
