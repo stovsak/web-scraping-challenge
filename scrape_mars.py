@@ -23,19 +23,19 @@ def scrape():
 
 	# Retrieve the most recent article's title and paragraph.
 	# Store in news variables.
-	item_list=news_soup.find('ul', class_='item_list')
+	item_list = news_soup.find('ul', class_='item_list')
 	news_title = item_list.find("div", class_="content_title").text
 	news_paragraph = item_list.find("div", class_="article_teaser_body").text
 
 	# Exit Browser.
-	browser.quit()
+	# browser.quit()
 
 	print(f'Title: {news_title}\nText: {news_paragraph}')
 
 	# JPL Mars Space Images - Featured Image
 
 	# Run init_browser/driver.
-	browser = init_browser()
+	# browser = init_browser()
 	# Visit the url for JPL Featured Space Image.
 	jpl_url = "https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars"
 	browser.visit(jpl_url)
@@ -53,7 +53,7 @@ def scrape():
 	# Concatentate https://www.jpl.nasa.gov with image_url.
 	featured_image_url = f'https://www.jpl.nasa.gov{image_url}'
 	# Exit Browser.
-	browser.quit()
+	# browser.quit()
 
 	print(featured_image_url)
 
@@ -83,7 +83,7 @@ def scrape():
 	# Mars Hemispheres
 
 	# Run init_browser/driver.
-	browser = init_browser()
+	# browser = init_browser()
 	# Visit the url for USGS Astrogeology.
 	astrogeo_url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
 	browser.visit(astrogeo_url)
@@ -103,7 +103,7 @@ def scrape():
 		hem_url = hem.find('a')['href']
 		hemis_url.append(hem_url)
 
-	browser.quit()
+	# browser.quit()
 
 	print(hemis_url)
 
@@ -116,7 +116,7 @@ def scrape():
 		astrogeo_url = main_astrogeo_url + hemi
 		print(astrogeo_url)
 		# Run init_browser/driver.
-		browser = init_browser()
+		# browser = init_browser()
 		browser.visit(astrogeo_url)
 		# HTML Object.
 		html = browser.html
@@ -130,7 +130,7 @@ def scrape():
 		img_url = hemi_soup.find("li").a['href']
 		# Append both title and img_url to 'hemisphere_image_url'.
 		hemisphere_image_urls.append({'title': title, 'img_url': img_url})
-		browser.quit()
+		# browser.quit()
 
 	# Mars Data Dictionary Mongo
 	# Create empty dictionary for all the Mars Data
@@ -149,5 +149,7 @@ def scrape():
 	# Append hemisphere_image_urls to mars_data
 	mars_data['hemisphere_image_urls'] = hemisphere_image_urls
 
+	browser.quit()
 	print("Scraping Complete")
+
 	return mars_data
